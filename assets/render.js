@@ -73,6 +73,16 @@
   }
 
   function buildCoverage(C) {
+    // Try liveCoverage first (new format - proper JSON array)
+    if (C.liveCoverage) {
+      try {
+        const parsed = typeof C.liveCoverage === 'string'
+          ? JSON.parse(C.liveCoverage)
+          : C.liveCoverage;
+        if (Array.isArray(parsed)) return parsed;
+      } catch(e) {}
+    }
+    // Fallback to old comma-split fields
     const shows  = splitComma(C.coverageShows);
     const titles = splitComma(C.coverageTitles);
     const links  = splitComma(C.coverageLinks);
@@ -190,7 +200,7 @@
     <div class="layout">
       <aside class="sidebar">
         <div class="sidebar-avatar">
-          ${C.photo ? `<img src="${esc(C.photo)}" alt="${esc(C.name)}" onerror="this.parentElement.innerHTML='<span class=\\'avatar-placeholder\\'>${initials}</span>'" />` : `<span class="avatar-placeholder">${initials}</span>`}
+          ${(C.PhotoURL || C.photo) ? `<img src="${esc(C.PhotoURL || C.photo)}" alt="${esc(C.name)}" onerror="this.parentElement.innerHTML='<span class=\\'avatar-placeholder\\'>${initials}</span>'" />` : `<span class="avatar-placeholder">${initials}</span>`}
         </div>
         <div class="sidebar-name">${esc(C.name)}</div>
         ${C.title ? `<div class="sidebar-client-title">${esc(C.title)}</div>` : ''}
