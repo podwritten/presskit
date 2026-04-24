@@ -1,357 +1,307 @@
 /* =====================================================
-   PODWRITTEN PRESS KIT — SHARED STYLESHEET
-   Edit this file to update ALL client press kits
+   PODWRITTEN PRESS KIT — SHARED RENDERER
+   Fetches config.json written by Make/Airtable
+   Edit this file to update ALL client press kit layouts
    ===================================================== */
 
-:root {
-  --accent:    #7592f2;
-  --accent-bg: #f0eeff;
-  --text:      #111111;
-  --muted:     #888888;
-  --border:    #e8e8e8;
-  --bg:        #ffffff;
-  --sidebar-w: 280px;
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { height: 100%; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; font-family: 'DM Sans', sans-serif; }
-
-.layout { display: flex; flex: 1; min-height: 100vh; }
-
-.sidebar {
-  width: var(--sidebar-w);
-  flex-shrink: 0;
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 36px 20px 28px;
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  overflow-y: auto;
-  background: var(--bg);
-  z-index: 100;
-}
-
-.sidebar-avatar {
-  width: 96px; height: 96px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  overflow: hidden;
-  margin-bottom: 16px;
-  background: #f5f5f5;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-
-.sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-.avatar-placeholder {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem; color: #ccc; font-weight: 400;
-}
-
-.sidebar-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px; font-weight: 400;
-  color: var(--text); text-align: center;
-  line-height: 1.3; margin-bottom: 5px;
-}
-
-.sidebar-client-title {
-  font-size: 11px; color: var(--accent);
-  text-align: center; line-height: 1.5;
-  margin-bottom: 30px; padding: 0 8px;
-  font-weight: 500;
-}
-
-.sidebar-nav { width: 100%; display: flex; flex-direction: column; gap: 2px; }
-
-.nav-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 14px; border-radius: 7px;
-  font-size: 13.5px; color: #555;
-  cursor: pointer; transition: all 0.15s;
-  letter-spacing: 0.01em; border: none;
-  background: transparent; width: 100%; text-align: left;
-}
-
-.nav-item:hover { background: #f7f7f7; color: var(--text); }
-
-.nav-item.active {
-  background: var(--accent-bg);
-  color: var(--accent);
-  font-weight: 500;
-}
-
-.nav-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: currentColor; opacity: 0.45; flex-shrink: 0;
-}
-
-.nav-item.active .nav-dot { opacity: 1; }
-
-.sidebar-socials {
-  margin-top: auto;
-  padding-top: 28px;
-  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
-}
-
-.social-btn {
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted);
-  transition: all 0.15s; background: transparent;
-  text-decoration: none;
-}
-
-.social-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-.main {
-  margin-left: var(--sidebar-w);
-  flex: 1; display: flex; flex-direction: column; min-height: 100vh;
-}
-
-.section { display: none; flex: 1; animation: fadeUp 0.3s ease both; }
-.section.active { display: flex; flex-direction: column; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.banner {
-  border-bottom: 1px solid var(--border);
-  padding: 48px 52px 40px;
-  background: #fff;
-}
-
-.banner-eyebrow {
-  font-size: 10px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--accent);
-  font-weight: 500; margin-bottom: 14px;
-}
-
-.banner-name {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400; line-height: 1.1;
-  color: var(--text); margin-bottom: 14px;
-}
-
-.banner-sub {
-  font-size: 13.5px; color: var(--muted);
-  max-width: 560px; line-height: 1.7;
-}
-
-.content { padding: 40px 52px; flex: 1; }
-
-.bio-text {
-  font-size: 15px; line-height: 1.9;
-  color: var(--text); max-width: 680px; margin-bottom: 32px;
-}
-
-.topics-label {
-  font-size: 10px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--accent);
-  margin-bottom: 12px; font-weight: 500;
-}
-
-.tags { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.tag {
-  padding: 5px 14px; border: 1px solid var(--border);
-  font-size: 12px; color: var(--muted); border-radius: 100px;
-  transition: all 0.15s;
-}
-
-.tag:hover { border-color: var(--accent); color: var(--accent); }
-
-.about-tabs {
-  display: flex; gap: 0;
-  margin-bottom: 28px;
-  border-bottom: 1px solid var(--border);
-}
-
-.about-tab {
-  padding: 10px 20px; font-size: 12px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border: none; background: transparent; color: var(--muted);
-  cursor: pointer; border-bottom: 2px solid transparent;
-  margin-bottom: -1px; transition: all 0.15s;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.about-tab:hover { color: var(--text); }
-
-.about-tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-  font-weight: 500;
-}
-
-.filter-row { display: flex; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
-
-.filter-btn {
-  padding: 5px 14px; font-size: 10.5px;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1px solid var(--border); background: transparent;
-  color: var(--muted); transition: all 0.15s; border-radius: 4px;
-}
-
-.filter-btn.active, .filter-btn:hover {
-  border-color: var(--accent); color: var(--accent); background: var(--accent-bg);
-}
-
-.coverage-list { display: flex; flex-direction: column; }
-
-.coverage-item {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  padding: 16px 0; border-bottom: 1px solid var(--border); gap: 16px;
-}
-
-.coverage-item:last-child { border-bottom: none; }
-
-.coverage-pub {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px; color: var(--text);
-  line-height: 1.35; margin-bottom: 4px; font-weight: 400;
-}
-
-.coverage-title {
-  font-size: 10px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--accent); font-weight: 500;
-}
-
-.coverage-link {
-  flex-shrink: 0; font-size: 10px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--accent);
-  border: 1px solid var(--accent);
-  padding: 5px 12px; border-radius: 4px;
-  transition: all 0.15s; white-space: nowrap;
-}
-
-.coverage-link:hover { background: var(--accent); color: #fff; }
-
-.drive-link-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 24px; border: 1px solid var(--border);
-  font-size: 14px; color: var(--text); border-radius: 4px;
-  transition: all 0.2s; margin-bottom: 28px;
-}
-
-.drive-link-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-.questions-intro {
-  font-size: 13.5px; color: var(--muted);
-  max-width: 560px; margin-bottom: 32px; line-height: 1.75;
-}
-
-.question-item {
-  display: grid; grid-template-columns: 32px 1fr;
-  gap: 20px; padding: 18px 0;
-  border-bottom: 1px solid var(--border); align-items: start;
-}
-
-.question-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; color: var(--accent); font-weight: 400;
-  padding-top: 2px; line-height: 1.7;
-}
-
-.question-text { font-size: 14.5px; line-height: 1.65; color: var(--text); }
-
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 680px; }
-
-.contact-group h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem; font-weight: 400; margin-bottom: 20px; color: var(--text);
-}
-
-.contact-row {
-  display: flex; justify-content: space-between;
-  align-items: baseline; padding: 10px 0;
-  border-bottom: 1px solid var(--border); gap: 12px;
-}
-
-.contact-row:first-of-type { border-top: 1px solid var(--border); }
-
-.contact-key {
-  font-size: 10px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--muted); flex-shrink: 0;
-}
-
-.contact-val { font-size: 13px; color: var(--text); text-align: right; }
-.contact-val a { color: var(--accent); }
-.contact-val a:hover { text-decoration: underline; }
-
-footer {
-  border-top: 1px solid var(--border);
-  padding: 14px 52px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg);
-}
-
-footer span { font-size: 11.5px; color: #bbb; }
-footer a { color: var(--accent); font-weight: 500; }
-
-.topbar {
-  display: none;
-  position: fixed; top: 0; left: 0; right: 0;
-  height: 56px; background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  padding: 0 20px;
-  align-items: center; justify-content: space-between;
-  z-index: 200;
-}
-
-.topbar-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 400; }
-
-.hamburger {
-  display: flex; flex-direction: column; gap: 5px;
-  background: transparent; border: none; padding: 4px;
-}
-
-.hamburger span {
-  display: block; width: 22px; height: 1.5px;
-  background: var(--text); transition: all 0.25s;
-}
-
-.mobile-menu {
-  display: none;
-  position: fixed; top: 56px; left: 0; right: 0;
-  background: var(--bg); border-bottom: 1px solid var(--border);
-  padding: 12px 16px; z-index: 190;
-  flex-direction: column; gap: 2px;
-}
-
-.mobile-menu.open { display: flex; }
-
-@media (max-width: 768px) {
-  .sidebar { display: none; }
-  .topbar  { display: flex; }
-  .main    { margin-left: 0; padding-top: 56px; }
-  .banner  { padding: 28px 24px 24px; }
-  .content { padding: 28px 24px; }
-  footer   { padding: 14px 24px; }
-  .banner-name { font-size: 1.8rem; }
-  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-  .coverage-item { flex-direction: column; align-items: flex-start; gap: 10px; }
-}
+(function () {
+
+  const ICONS = {
+    instagram: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`,
+    youtube:   `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>`,
+    tiktok:    `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>`,
+    web:       `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    podcast:   `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`,
+    linkedin:  `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
+    facebook:  `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+  };
+
+  const SECTIONS = [
+    { id: 'about',     label: 'About' },
+    { id: 'coverage',  label: 'Media Coverage' },
+    { id: 'topics',    label: 'Speaking Topics & Audiences' },
+    { id: 'headshots', label: 'Headshots' },
+    { id: 'contact',   label: 'Contact' },
+  ];
+
+  /* ── Show loading state ──────────────────────────── */
+  document.body.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'DM Sans',sans-serif;color:#888;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;">
+      Loading…
+    </div>`;
+
+  /* ── Fetch config.json ───────────────────────────── */
+  fetch('config.json?' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('Config not found');
+      return r.json();
+    })
+    .then(C => render(C))
+    .catch(err => {
+      document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'DM Sans',sans-serif;color:#888;font-size:14px;">
+          Unable to load press kit. Please try again later.
+        </div>`;
+    });
+
+  /* ── Helpers ─────────────────────────────────────── */
+  function esc(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function stripMarkdown(str) {
+    return String(str || '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/_([^_]+)_/g, '$1')
+      .replace(/<https?:[^>]+>/g, '')
+      .replace(/<[^>]+>/g, '')
+      .trim();
+  }
+
+  function splitComma(str) {
+    if (!str) return [];
+    return String(str).split(',').map(s => s.trim()).filter(Boolean);
+  }
+
+  function parseBullets(str) {
+    if (!str) return [];
+    return String(str)
+      .split('\n')
+      .map(line => line.replace(/^[-*\d.]\s*/, '').trim())
+      .filter(line => line.length > 2);
+  }
+
+  function buildCoverage(C) {
+    // Try liveCoverage first (new format - proper JSON array)
+    if (C.liveCoverage) {
+      try {
+        const parsed = typeof C.liveCoverage === 'string'
+          ? JSON.parse(C.liveCoverage)
+          : C.liveCoverage;
+        if (Array.isArray(parsed)) return parsed;
+      } catch(e) {}
+    }
+    // Fallback to old comma-split fields
+    const shows  = splitComma(C.coverageShows);
+    const titles = splitComma(C.coverageTitles);
+    const links  = splitComma(C.coverageLinks);
+    const maxLen = Math.max(shows.length, titles.length, links.length);
+    const items = [];
+    for (let i = 0; i < maxLen; i++) {
+      const show = shows[i] || '';
+      if (show.startsWith('rec') && show.length === 17) continue;
+      items.push({ show, episode: titles[i] || '', url: links[i] || '', type: 'podcast' });
+    }
+    return items;
+  }
+
+  function buildPreviousPodcasts(C) {
+    const str = C.previousPodcasts || '';
+    const items = [];
+    const lineRegex = /\d+\.\s*\[([^\]]+)\]\(([^)]+)\)/g;
+    let match;
+    while ((match = lineRegex.exec(str)) !== null) {
+      const show = match[1];
+      const url  = match[2];
+      const rest = str.slice(match.index + match[0].length);
+      const boldMatch = rest.match(/\*\*([^*\n]+)\*\*/);
+      const episode = boldMatch ? boldMatch[1].trim() : '';
+      items.push({ show, episode, url, type: 'podcast' });
+    }
+    return items;
+  }
+
+  /* ── Render ─────────────────────────────────────── */
+  function render(C) {
+
+    const allCoverage = [...buildCoverage(C), ...buildPreviousPodcasts(C)];
+
+    function navItems() {
+      return SECTIONS.map(s => `<button class="nav-item" onclick="go('${s.id}')"><span class="nav-dot"></span>${esc(s.label)}</button>`).join('');
+    }
+
+    function socialButtons() {
+      const socials = [];
+      if (C.instagram)  socials.push({ type: 'instagram', url: C.instagram,  label: C.instagram });
+      if (C.instagram2) socials.push({ type: 'instagram', url: C.instagram2, label: C.instagram2 });
+      if (C.youtube)    socials.push({ type: 'youtube',   url: C.youtube,    label: 'YouTube' });
+      if (C.tiktok)     socials.push({ type: 'tiktok',    url: C.tiktok,     label: 'TikTok' });
+      if (C.facebook)   socials.push({ type: 'facebook',  url: C.facebook,   label: 'Facebook' });
+      if (C.linkedin)   socials.push({ type: 'linkedin',  url: C.linkedin,   label: 'LinkedIn' });
+      if (C.podcast)    socials.push({ type: 'podcast',   url: C.podcast,    label: 'Podcast' });
+      if (C.website)    socials.push({ type: 'web',       url: C.website,    label: C.website.replace(/https?:\/\//,'') });
+      if (C.website2)   socials.push({ type: 'web',       url: C.website2,   label: C.website2.replace(/https?:\/\//,'') });
+      return socials.map(s => `<a class="social-btn" href="${esc(s.url)}" target="_blank" title="${esc(s.label)}">${ICONS[s.type] || ICONS.web}</a>`).join('');
+    }
+
+    function coverageHTML() {
+      if (!allCoverage.length) return `<p style="color:var(--muted);font-style:italic;padding:20px 0;">No coverage added yet.</p>`;
+      return allCoverage.map(item => `
+        <div class="coverage-item" data-type="${esc(item.type)}">
+          <div>
+            <div class="coverage-pub">${esc(stripMarkdown(item.show))}</div>
+            ${item.episode ? `<div class="coverage-title">${esc(stripMarkdown(item.episode))}</div>` : ''}
+          </div>
+          ${item.url ? `<a class="coverage-link" href="${esc(item.url)}" target="_blank">Listen ↗</a>` : ''}
+        </div>`).join('');
+    }
+
+    function talkingPointsHTML() {
+      const points = parseBullets(C.talkingPoints);
+      if (!points.length) return `<p style="color:var(--muted);font-style:italic;">No talking points added yet.</p>`;
+      return points.map((q, i) => `
+        <div class="question-item">
+          <span class="question-num">${String(i+1).padStart(2,'0')}</span>
+          <span class="question-text">${esc(q)}</span>
+        </div>`).join('');
+    }
+
+    function bioHTML() {
+      const bio = stripMarkdown(C.shortBio || '');
+      return bio.split('\n').filter(p => p.trim().length > 1).map(p => `<p class="bio-text">${esc(p.trim())}</p>`).join('') || `<p class="bio-text" style="color:var(--muted);font-style:italic;">Bio coming soon.</p>`;
+    }
+
+    function storyHTML() {
+      const story = stripMarkdown(C.longBio || '');
+      if (!story || story.toLowerCase().includes('delete later')) {
+        return `<p class="bio-text" style="color:var(--muted);font-style:italic;">Full story coming soon.</p>`;
+      }
+      return story.split('\n').filter(p => p.trim().length > 1).map(p => `<p class="bio-text">${esc(p.trim())}</p>`).join('');
+    }
+
+    function contactSocialsHTML() {
+      return [
+        { key: 'Instagram', val: C.instagram },
+        { key: 'Instagram', val: C.instagram2 },
+        { key: 'YouTube',   val: C.youtube },
+        { key: 'TikTok',    val: C.tiktok },
+        { key: 'LinkedIn',  val: C.linkedin },
+        { key: 'Facebook',  val: C.facebook },
+        { key: 'Podcast',   val: C.podcast },
+        { key: 'Website',   val: C.website },
+        { key: 'Website',   val: C.website2 },
+      ].filter(p => p.val).map(p => `
+        <div class="contact-row">
+          <span class="contact-key">${esc(p.key)}</span>
+          <span class="contact-val"><a href="${esc(p.val)}" target="_blank">${esc(p.val.replace(/https?:\/\//,''))}</a></span>
+        </div>`).join('');
+    }
+
+    const initials = esc((C.name||'').split(' ').map(w=>w[0]).join(''));
+
+    document.title = `${C.name} — Press Kit`;
+    document.body.innerHTML = `
+    <div class="topbar">
+      <span class="topbar-name">${esc(C.name)}</span>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">${navItems()}</div>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-avatar">
+          ${(C.PhotoURL || C.photo) ? `<img src="${esc(C.PhotoURL || C.photo)}" alt="${esc(C.name)}" onerror="this.parentElement.innerHTML='<span class=\\'avatar-placeholder\\'>${initials}</span>'" />` : `<span class="avatar-placeholder">${initials}</span>`}
+        </div>
+        <div class="sidebar-name">${esc(C.name)}</div>
+        ${C.title ? `<div class="sidebar-client-title">${esc(C.title)}</div>` : ''}
+        <nav class="sidebar-nav">${navItems()}</nav>
+        <div class="sidebar-socials">${socialButtons()}</div>
+      </aside>
+      <div class="main">
+        <section id="about" class="section active">
+          <div class="banner"><div class="banner-eyebrow">About</div><h1 class="banner-name">Biography</h1></div>
+          <div class="content">
+            <div class="about-tabs">
+              <button class="about-tab active" onclick="switchTab('bio',this)">Short Bio</button>
+              <button class="about-tab" onclick="switchTab('story',this)">Full Story</button>
+            </div>
+            <div id="tab-bio" class="about-tab-content">${bioHTML()}</div>
+            <div id="tab-story" class="about-tab-content" style="display:none;">${storyHTML()}</div>
+          </div>
+          <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+        </section>
+        <section id="coverage" class="section">
+          <div class="banner"><div class="banner-eyebrow">Media Coverage</div><h1 class="banner-name">Press & Appearances</h1><p class="banner-sub">Podcast interviews, press features, and published articles.</p></div>
+          <div class="content">
+            <div class="filter-row">
+              <button class="filter-btn active" onclick="filterCoverage('all',this)">All</button>
+              <button class="filter-btn" onclick="filterCoverage('podcast',this)">Podcasts</button>
+              <button class="filter-btn" onclick="filterCoverage('press',this)">Press</button>
+              <button class="filter-btn" onclick="filterCoverage('article',this)">Articles</button>
+            </div>
+            <div class="coverage-list" id="coverageList">${coverageHTML()}</div>
+          </div>
+          <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+        </section>
+        <section id="topics" class="section">
+          <div class="banner"><div class="banner-eyebrow">Speaking Topics & Audiences</div><h1 class="banner-name">Topics & Talking Points</h1></div>
+          <div class="content">
+            <p class="questions-intro">The following questions are designed to spark meaningful conversations. Feel free to adapt them to your format or audience.</p>
+            <div>${talkingPointsHTML()}</div>
+          </div>
+          <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+        </section>
+        <section id="headshots" class="section">
+          <div class="banner"><div class="banner-eyebrow">Headshots</div><h1 class="banner-name">Photos & Media</h1><p class="banner-sub">High-resolution photos cleared for press and editorial use.</p></div>
+          <div class="content">
+            <p style="font-size:15px;color:var(--muted);margin-bottom:28px;line-height:1.75;">All headshots and media assets are available in the Google Drive folder below.</p>
+            ${C.driveFolder ? `<a class="drive-link-btn" href="${esc(C.driveFolder)}" target="_blank">↗ &nbsp;Open full photo library in Google Drive</a>` : `<p style="color:var(--muted);font-style:italic;">No photo folder linked yet.</p>`}
+          </div>
+          <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+        </section>
+        <section id="contact" class="section">
+          <div class="banner"><div class="banner-eyebrow">Contact</div><h1 class="banner-name">Booking & Press</h1><p class="banner-sub">For interview bookings and media enquiries, get in touch below. We aim to respond within 24 hours.</p></div>
+          <div class="content">
+            <div class="contact-grid">
+              <div class="contact-group">
+                <h3>Press & Bookings</h3>
+                <div class="contact-row"><span class="contact-key">Email</span><span class="contact-val"><a href="mailto:${esc(C.contact||'booking@podwritten.com')}">${esc(C.contact||'booking@podwritten.com')}</a></span></div>
+                ${C.website ? `<div class="contact-row"><span class="contact-key">Website</span><span class="contact-val"><a href="${esc(C.website)}" target="_blank">${esc(C.website.replace(/https?:\/\//,''))}</a></span></div>` : ''}
+              </div>
+              <div class="contact-group"><h3>Social</h3>${contactSocialsHTML()}</div>
+            </div>
+          </div>
+          <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+        </section>
+      </div>
+    </div>`;
+
+    window.go = function(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      const el = document.getElementById(id);
+      if (el) el.classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(b => {
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${id}'`)) b.classList.add('active');
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const menu = document.getElementById('mobileMenu');
+      if (menu) menu.classList.remove('open');
+    };
+
+    window.switchTab = function(tab, btn) {
+      document.querySelectorAll('.about-tab-content').forEach(t => t.style.display = 'none');
+      document.querySelectorAll('.about-tab').forEach(b => b.classList.remove('active'));
+      const el = document.getElementById('tab-' + tab);
+      if (el) el.style.display = 'block';
+      btn.classList.add('active');
+    };
+
+    window.toggleMenu = function() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu) menu.classList.toggle('open');
+    };
+
+    window.filterCoverage = function(type, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#coverageList .coverage-item').forEach(item => {
+        item.style.display = (type === 'all' || item.dataset.type === type) ? 'flex' : 'none';
+      });
+    };
+
+    const firstNav = document.querySelector('.sidebar .nav-item');
+    if (firstNav) firstNav.classList.add('active');
+  }
+
+})();
