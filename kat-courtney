@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kat Courtney — Press Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CONFIG ──────────────────────────────────────── */
+    :root {
+      --accent:   #7592f2;
+      --accent-bg:#f0eeff;
+      --text:     #111111;
+      --muted:    #888888;
+      --border:   #e8e8e8;
+      --bg:       #ffffff;
+      --sidebar-w: 240px;
+    }
+
+    /* ─── RESET ───────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+    /* ─── LAYOUT ──────────────────────────────────────── */
+    .layout {
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+    }
+
+    /* ─── SIDEBAR ─────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 20px 28px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .sidebar-avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 16px;
+      background: #f5f5f5;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .avatar-placeholder {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: #ccc; font-weight: 400;
+    }
+
+    .sidebar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-weight: 400;
+      color: var(--text); text-align: center;
+      line-height: 1.3; margin-bottom: 5px;
+    }
+
+    .sidebar-tagline {
+      font-size: 11px; color: var(--muted);
+      text-align: center; line-height: 1.5;
+      margin-bottom: 30px;
+      padding: 0 8px;
+    }
+
+    .sidebar-nav {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 14px; border-radius: 7px;
+      font-size: 12.5px; color: #555;
+      cursor: pointer; transition: all 0.15s;
+      letter-spacing: 0.01em; border: none;
+      background: transparent; width: 100%; text-align: left;
+    }
+
+    .nav-item:hover { background: #f7f7f7; color: var(--text); }
+
+    .nav-item.active {
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .nav-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: currentColor; opacity: 0.45; flex-shrink: 0;
+    }
+
+    .nav-item.active .nav-dot { opacity: 1; }
+
+    .sidebar-socials {
+      margin-top: auto;
+      padding-top: 28px;
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    }
+
+    .social-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 500; color: var(--muted);
+      transition: all 0.15s; background: transparent;
+      text-decoration: none;
+    }
+
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── MAIN ────────────────────────────────────────── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ─── SECTIONS ────────────────────────────────────── */
+    .section {
+      display: none;
+      flex: 1;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .section.active { display: flex; flex-direction: column; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── BANNER ──────────────────────────────────────── */
+    .banner {
+      border-bottom: 1px solid var(--border);
+      padding: 48px 52px 40px;
+      background: #fff;
+    }
+
+    .banner-eyebrow {
+      font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent);
+      font-weight: 500; margin-bottom: 14px;
+    }
+
+    .banner-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; line-height: 1.1;
+      color: var(--text); margin-bottom: 14px;
+    }
+
+    .banner-sub {
+      font-size: 13.5px; color: var(--muted);
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* ─── CONTENT AREA ────────────────────────────────── */
+    .content { padding: 40px 52px; flex: 1; }
+
+    /* ─── SECTION TITLE ───────────────────────────────── */
+    .section-title {
+      font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent);
+      font-weight: 500; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .section-title::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+
+    /* ─── HOME ────────────────────────────────────────── */
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .home-stat {
+      padding: 28px 32px;
+      border-right: 1px solid var(--border);
+    }
+
+    .home-stat:last-child { border-right: none; }
+
+    .home-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 400;
+      color: var(--text); display: block; margin-bottom: 4px;
+    }
+
+    .home-stat-label {
+      font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    .home-links {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block; padding: 10px 22px;
+      font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 500;
+      border: 1px solid; transition: all 0.2s;
+      border-radius: 4px;
+    }
+
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--text); }
+
+    /* ─── ABOUT ───────────────────────────────────────── */
+    .bio-text {
+      font-size: 15px; line-height: 1.9;
+      color: var(--text); max-width: 680px;
+      margin-bottom: 32px;
+    }
+
+    .topics-label {
+      font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px; font-weight: 500;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      font-size: 12px; color: var(--muted);
+      border-radius: 100px;
+      transition: all 0.15s;
+    }
+
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── COVERAGE ────────────────────────────────────── */
+    .filter-row { display: flex; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
+
+    .filter-btn {
+      padding: 5px 14px; font-size: 10.5px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted); transition: all 0.15s; border-radius: 4px;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    .coverage-list { display: flex; flex-direction: column; }
+
+    .coverage-item {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .coverage-item:last-child { border-bottom: none; }
+
+    .coverage-pub {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; color: var(--text);
+      line-height: 1.35; margin-bottom: 4px;
+      font-weight: 400; text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .coverage-title {
+      font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      font-weight: 500;
+    }
+
+    .coverage-link {
+      flex-shrink: 0;
+      font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 5px 12px; border-radius: 4px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .coverage-link:hover {
+      background: var(--accent); color: #fff;
+    }
+
+    .no-coverage {
+      font-size: 13px; color: var(--muted);
+      font-style: italic; padding: 20px 0;
+    }
+
+    /* ─── IMAGES ──────────────────────────────────────── */
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .image-card {
+      border: 1px solid var(--border);
+      overflow: hidden; border-radius: 4px;
+    }
+
+    .image-frame {
+      aspect-ratio: 3/4; background: #f5f5f5;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .img-placeholder { font-size: 12px; color: #ccc; letter-spacing: 0.06em; }
+
+    .image-card-footer {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .image-card-label { font-size: 11px; color: var(--muted); }
+
+    .image-dl {
+      font-size: 10px; color: var(--accent);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .drive-link-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border: 1px solid var(--border);
+      font-size: 12px; color: var(--text); border-radius: 4px;
+      transition: all 0.2s; margin-bottom: 28px;
+    }
+
+    .drive-link-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── QUESTIONS ───────────────────────────────────── */
+    .questions-intro {
+      font-size: 13.5px; color: var(--muted);
+      max-width: 560px; margin-bottom: 32px; line-height: 1.75;
+    }
+
+    .question-item {
+      display: grid; grid-template-columns: 32px 1fr;
+      gap: 20px; padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .question-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--accent); font-weight: 400;
+      padding-top: 2px; line-height: 1.7;
+    }
+
+    .question-text { font-size: 14.5px; line-height: 1.65; color: var(--text); }
+
+    /* ─── CONTACT ─────────────────────────────────────── */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; max-width: 680px;
+    }
+
+    .contact-group h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 400;
+      margin-bottom: 20px; color: var(--text);
+    }
+
+    .contact-row {
+      display: flex; justify-content: space-between;
+      align-items: baseline; padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .contact-row:first-of-type { border-top: 1px solid var(--border); }
+
+    .contact-key {
+      font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .contact-val { font-size: 13px; color: var(--text); text-align: right; }
+    .contact-val a { color: var(--accent); }
+    .contact-val a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+    }
+
+    footer span { font-size: 11.5px; color: #bbb; }
+    footer a { color: var(--accent); font-weight: 500; }
+
+    /* ─── MOBILE TOP NAV ──────────────────────────────── */
+    .topbar {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 56px; background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      align-items: center; justify-content: space-between;
+      z-index: 200;
+    }
+
+    .topbar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-weight: 400;
+    }
+
+    .hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      background: transparent; border: none; padding: 4px;
+    }
+
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); transition: all 0.25s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 56px; left: 0; right: 0;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 12px 16px; z-index: 190;
+      flex-direction: column; gap: 2px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .topbar  { display: flex; }
+      .main    { margin-left: 0; padding-top: 56px; }
+
+      .banner  { padding: 28px 24px 24px; }
+      .content { padding: 28px 24px; }
+      footer   { padding: 14px 24px; }
+
+      .banner-name { font-size: 1.8rem; }
+
+      .home-grid { grid-template-columns: 1fr 1fr; }
+      .home-stat { padding: 20px; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .coverage-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+
+    @media (max-width: 420px) {
+      .home-grid { grid-template-columns: 1fr; }
+      .home-stat { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+    /* ─── ABOUT TABS ──────────────────────────────────── */
+    .about-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-tab {
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .about-tab:hover { color: var(--text); }
+
+    .about-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE TOPBAR -->
+<div class="topbar">
+  <span class="topbar-name">Kat Courtney</span>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="nav-item" onclick="go('about')"><span class="nav-dot"></span>About</button>
+  <button class="nav-item" onclick="go('coverage')"><span class="nav-dot"></span>Media Coverage</button>
+  <button class="nav-item" onclick="go('images')"><span class="nav-dot"></span>Headshots</button>
+  <button class="nav-item" onclick="go('questions')"><span class="nav-dot"></span>Interview Questions</button>
+  <button class="nav-item" onclick="go('contact')"><span class="nav-dot"></span>Contact</button>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-avatar">
+      <img src="https://v5.airtableusercontent.com/v3/u/52/52/1777024800000/htjRQTbgE9rbrBIjc6DPsA/1SpMXLHbh5dH-TEZhNvBHDPKKyHafBsBN_D6CjmoKHODo7QylMh6otCXT8Q4MO2I4oR4sjqOitkWjAGUDrqzRKqPTka1RmRlcRNdLLtX640o0KnfjNa0KSYfD1aeR8ryWawjE2Mff-FjNxzwPjPRpUG-NSTPNWjQRmdQoJlU7RI/5jfJqmwtYL2b1NWkGMF0xKKRIi9EJwcra7FraC6Hf1c" alt="Kat Courtney" />
+    </div>
+    <div class="sidebar-name">Kat Courtney</div>
+    <div class="sidebar-tagline">Ayahuasquera · Plant Medicine Pioneer · Author</div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="go('about')"><span class="nav-dot"></span>About</button>
+      <button class="nav-item" onclick="go('coverage')"><span class="nav-dot"></span>Media Coverage</button>
+      <button class="nav-item" onclick="go('images')"><span class="nav-dot"></span>Headshots</button>
+      <button class="nav-item" onclick="go('questions')"><span class="nav-dot"></span>Interview Questions</button>
+      <button class="nav-item" onclick="go('contact')"><span class="nav-dot"></span>Contact</button>
+    </nav>
+
+    <div class="sidebar-socials">
+      <a class="social-btn" href="https://www.instagram.com/theafterlifecoach/" target="_blank" title="Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/c/TinaKatCourtneyCoach" target="_blank" title="YouTube">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.plantmedicinepeople.com/" target="_blank" title="Website">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- ABOUT -->
+    <section id="about" class="section active">
+      <div class="banner">
+        <div class="banner-eyebrow">About</div>
+        <h1 class="banner-name">Biography</h1>
+      </div>
+      <div class="content">
+
+        <!-- TABS -->
+        <div class="about-tabs">
+          <button class="about-tab active" onclick="switchTab('bio', this)">Short Bio</button>
+          <button class="about-tab" onclick="switchTab('story', this)">Full Story</button>
+        </div>
+
+        <!-- BIO TAB -->
+        <div id="tab-bio" class="about-tab-content">
+          <p class="bio-text">"Kat" Courtney is a pioneer in the modern day Plant Medicine space; she is a traditionally trained Ayahuasquera and Huachumera with over 2 decades of professional psychedelic experience. Kat apprenticed for over 10 years in the Shipibo-Conibo and Quechua-Lamista traditions. She's the author of Plant Medicine Mystery School Vol 1: The Superhero Healing Powers of Psychotropic Plants – a book that celebrates the dynamic and sentient personalities of all the entheogens.</p>
+          <p class="bio-text">Kat is a trailblazer in the Psychedelic Integration space, as well as an expert in cultivating life-changing relationships with plant spirits. She leads Master Plant Diets both in person and remotely, and is available for coaching about this and all shamanic topics. Kat is also a certified Death Doula honored to help people make peace with the inevitable and beautiful transition into the afterlife.</p>
+          <div class="topics-label">Topics she speaks on</div>
+          <div class="tags">
+            <span class="tag">Plant Medicine</span>
+            <span class="tag">Ayahuasca</span>
+            <span class="tag">Psychedelic Integration</span>
+            <span class="tag">Shamanic Healing</span>
+            <span class="tag">Death Doula</span>
+            <span class="tag">Shadow Work</span>
+            <span class="tag">Somatic Healing</span>
+            <span class="tag">Consciousness</span>
+          </div>
+        </div>
+
+        <!-- STORY TAB -->
+        <div id="tab-story" class="about-tab-content" style="display:none;">
+          <p class="bio-text" style="color: var(--muted); font-style: italic;">Full story coming soon — add it to the Story field in Airtable.</p>
+        </div>
+
+      </div>
+      <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+    </section>
+
+    <!-- MEDIA COVERAGE -->
+    <section id="coverage" class="section">
+      <div class="banner">
+        <div class="banner-eyebrow">Media Coverage</div>
+        <h1 class="banner-name">Press &amp; Appearances</h1>
+        <p class="banner-sub">Podcast interviews, press features, and published articles.</p>
+      </div>
+      <div class="content">
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="filterCoverage('all',this)">All</button>
+          <button class="filter-btn" onclick="filterCoverage('podcast',this)">Podcasts</button>
+          <button class="filter-btn" onclick="filterCoverage('press',this)">Press</button>
+          <button class="filter-btn" onclick="filterCoverage('article',this)">Articles</button>
+        </div>
+
+        <div class="coverage-list" id="coverageList">
+          <div class="coverage-item" data-type="podcast">
+            <div>
+              <div class="coverage-title">Divine Duet: Ayahuasca, San Pedro, &amp; Plant Medicine Integration</div>
+              <div class="coverage-pub">The Psychedelic Podcast</div>
+            </div>
+            <a class="coverage-link" href="https://podcasts.apple.com/bo/podcast/kat-courtney-divine-duet-ayahuasca-san-pedro-plant/id1200537009?i=1000674680998" target="_blank">Listen ↗</a>
+          </div>
+          <div class="coverage-item" data-type="podcast">
+            <div>
+              <div class="coverage-title">Ayahuasca, Dietas &amp; Integrating with the Plants</div>
+              <div class="coverage-pub">Medicine for These Times</div>
+            </div>
+            <a class="coverage-link" href="https://podcasts.apple.com/us/podcast/kat-courtney-ayahuasca-dietas-integrating-with-the-plants/id1562920606?i=1000529426179" target="_blank">Listen ↗</a>
+          </div>
+        </div>
+      </div>
+      <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+    </section>
+
+    <!-- IMAGES -->
+    <section id="images" class="section">
+      <div class="banner">
+        <div class="banner-eyebrow">Headshots</div>
+        <h1 class="banner-name">Photos &amp; Media</h1>
+        <p class="banner-sub">High-resolution photos cleared for press and editorial use.</p>
+      </div>
+      <div class="content">
+        <a class="drive-link-btn" href="https://drive.google.com/drive/u/0/folders/1Yn9toQkiLwsW4yVL3juga9ELvy01iGQk" target="_blank">
+          ↗ &nbsp;Open full photo library in Google Drive
+        </a>
+        <div class="images-grid">
+          <div class="image-card">
+            <div class="image-frame"><span class="img-placeholder">Headshot 1</span></div>
+            <div class="image-card-footer">
+              <span class="image-card-label">Portrait</span>
+              <a class="image-dl" href="https://drive.google.com/drive/u/0/folders/1Yn9toQkiLwsW4yVL3juga9ELvy01iGQk" target="_blank">Download</a>
+            </div>
+          </div>
+          <div class="image-card">
+            <div class="image-frame"><span class="img-placeholder">Headshot 2</span></div>
+            <div class="image-card-footer">
+              <span class="image-card-label">Casual</span>
+              <a class="image-dl" href="https://drive.google.com/drive/u/0/folders/1Yn9toQkiLwsW4yVL3juga9ELvy01iGQk" target="_blank">Download</a>
+            </div>
+          </div>
+          <div class="image-card">
+            <div class="image-frame"><span class="img-placeholder">Action Shot</span></div>
+            <div class="image-card-footer">
+              <span class="image-card-label">Speaking</span>
+              <a class="image-dl" href="https://drive.google.com/drive/u/0/folders/1Yn9toQkiLwsW4yVL3juga9ELvy01iGQk" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+    </section>
+
+    <!-- INTERVIEW QUESTIONS -->
+    <section id="questions" class="section">
+      <div class="banner">
+        <div class="banner-eyebrow">Interview Questions</div>
+        <h1 class="banner-name">Suggested Questions</h1>
+      </div>
+      <div class="content">
+        <p class="questions-intro">The following questions are designed to spark meaningful, high-value conversations with Kat. Feel free to adapt them to your format or audience.</p>
+        <div id="questionsList">
+          <div class="question-item">
+            <span class="question-num">01</span>
+            <span class="question-text">Kat apprenticed in traditional lineages for over a decade, including periods of isolation and drinking ayahuasca for 30 consecutive nights during her training — what was that experience like and how did it shape her work?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">02</span>
+            <span class="question-text">What is the difference between plant consciousness and human consciousness — ego-based survival vs. unity consciousness — and how can this shift quiet anxiety, addiction, and mental suffering?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">03</span>
+            <span class="question-text">What is ego dissolution actually (and isn't), why can chasing it be destabilising, and why does grounded integration matter more than peak experiences?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">04</span>
+            <span class="question-text">What is shadow work, and how does someone begin — with or without plant medicine?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">05</span>
+            <span class="question-text">How do you choose ethical, safe, culturally respectful plant medicine facilitators — and what are the red flags most people miss?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">06</span>
+            <span class="question-text">How did being born with a life-threatening breathing disorder and having a near-death experience in her 20s shape Kat's lifelong relationship with death and healing?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">07</span>
+            <span class="question-text">What do plant medicines teach about resistance and surrender — and how does that impact the way Kat approaches challenges in everyday life?</span>
+          </div>
+        </div>
+      </div>
+      <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="banner">
+        <div class="banner-eyebrow">Contact</div>
+        <h1 class="banner-name">Booking &amp; Press</h1>
+        <p class="banner-sub">For interview bookings and media enquiries, get in touch below. We aim to respond within 24 hours.</p>
+      </div>
+      <div class="content">
+        <div class="contact-grid">
+          <div class="contact-group">
+            <h3>Press &amp; Bookings</h3>
+            <div class="contact-row">
+              <span class="contact-key">Email</span>
+              <span class="contact-val"><a href="mailto:booking@podwritten.com">booking@podwritten.com</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-key">Website</span>
+              <span class="contact-val"><a href="https://www.plantmedicinepeople.com/" target="_blank">plantmedicinepeople.com</a></span>
+            </div>
+          </div>
+          <div class="contact-group">
+            <h3>Social</h3>
+            <div class="contact-row">
+              <span class="contact-key">Instagram</span>
+              <span class="contact-val"><a href="https://www.instagram.com/theafterlifecoach/" target="_blank">@theafterlifecoach</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-key">YouTube</span>
+              <span class="contact-val"><a href="https://www.youtube.com/c/TinaKatCourtneyCoach" target="_blank">TinaKatCourtneyCoach</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer><span>Created by <a href="https://podwritten.com" target="_blank">podwritten.com</a></span></footer>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.about-tab-content').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.about-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).style.display = 'block';
+    btn.classList.add('active');
+  }
+
+  function go(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll(`.nav-item`).forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${id}'`)) {
+        b.classList.add('active');
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function filterCoverage(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#coverageList .coverage-item').forEach(item => {
+      item.style.display = (type === 'all' || item.dataset.type === type) ? 'flex' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
