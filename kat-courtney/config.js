@@ -1,4 +1,1 @@
-window.CLIENT = {
-  name: "Kat Courtney",
-  slug: "kat-courtney"
-};
+name\Kat Courtney\
